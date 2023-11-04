@@ -6,6 +6,12 @@ import webbrowser #web navigation / pip install webbrowser
 import wikipedia #brain modules / pip install wikipedia
 import wolframalpha #api calculation / pip install wolframalpha
 import pywhatkit #for opening websites use it later / pip install pywhatkit
+import openai
+from apikey import api_data
+
+openai.api_key=api_data # new
+
+completion=openai.Completion() # new
 
 # Speech engine initialisation
 
@@ -14,6 +20,7 @@ engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
 activationWord = 'athena'
+openaiactivationWord = 'inspect'
 
 # Configure browser
 # Set the path
@@ -48,6 +55,15 @@ def parseCommand():
         return 'None'
     
     return query  
+
+#Openai system
+
+def Openai_reply(question):
+    prompt=f': {question}\n '
+    response=completion.create(prompt=prompt, engine="text-davinci-002", max_tokens=500)
+    answer=response.choices[0].text.strip()
+    return answer
+
 
 #Wikipedia system
 def search_wikipedia(query = ''):
@@ -139,7 +155,7 @@ if __name__ == '__main__':
            
            if query[0] == 'wikipedia':   #inaccurate data
               query = ' '.join(query)
-              speak('Ok sir, querying the universal databank...')
+              speak('Got it sir, Accessing the wikipedia library')
               speak(search_wikipedia(query))
               
            #news
@@ -176,21 +192,33 @@ if __name__ == '__main__':
               
            if query[0] == 'what' and query[1] == 'can':
               query = ' '.join(query[2])
-              speak('I have so many functions and capabilities that can be very useful to you sir, I can do real time conversation, website navigation, search specific information on wikipedia, note recording, and also, my specialty, the ability to calculate, extrapolate, and inspect mathematical or logical, raw data.')
+              speak('I have so many functions and capabilities that can be very useful to you sir, I can do real time conversation, website navigation, search specific information on wikipedia, note recording, and my specialty, the ability to calculate and extrapolate, mathematical or logical, raw data. im also powered by openai api, meaning to say i can do anything what chatgpt can do')
               print(*"a"[1:5],sep=',')
               
               
             #wolframealpha
             
-           if query[0] == 'calculate' or query[0] == 'extrapolate' or query[0] == 'inspect':
+           if query[0] == 'calculate' or query[0] == 'extrapolate':
                 query = ' '.join(query[1:])
-                speak('Computing and gathering data sir...')
+                speak('Im on it sir, calculating and gathering data input')
                 try:
                     result = search_wolframAlpha(query)
                     speak(result)
                 except:
-                    speak('Unable to identify data sir...')          
-              
+                    speak('Sir, It appears that the data query has encountered an issue due to incorrect input. Please provide valid data, and I be happy to assist you further.')     
+                    
+            #openai
+                    
+           if query[0] == 'inspect':
+                query = ' '.join(query[1:])
+                speak('Ok sir, querying the universal databank...')
+                try:
+                    result = Openai_reply(query)
+                    print(result)
+                    speak(result)
+                except:
+                    speak('Unable to identify given data sir...')    
+  
            #notetaking
            if query[0] == 'notes':
                speak('Im listening sir, Ready to record your note')
@@ -203,6 +231,8 @@ if __name__ == '__main__':
            if query[0] == 'power' and query[1] == 'down':
                speak('Ok sir, Goodbye, have a great day ahead!')
                break
+           
+           
                 
            
            
