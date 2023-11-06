@@ -1,9 +1,11 @@
 from datetime import datetime #date and time recognizer
 from GoogleNews import GoogleNews #google news
+
 import speech_recognition as sr #voice recognition / pip install speech_recognition
 import pyttsx3 #text to speech for ai / pip install pyttsx3
 import webbrowser #web navigation / pip install webbrowser
 import wikipedia #brain modules / pip install wikipedia
+import pyjokes
 import wolframalpha #api calculation / pip install wolframalpha
 import pywhatkit #for opening websites use it later / pip install pywhatkit
 import openai
@@ -115,6 +117,12 @@ def search_wolframAlpha(query = ''):
           #search wikipedia instead
           speak('Calculation failed. Querying the universal databank.')
           return search_wikipedia(question)
+      
+# joke system
+
+def joke(query = ''):
+    pyjokes.get_joke('en','neutral', max_tokens= 50)
+
 
 #Main loop
 
@@ -172,7 +180,7 @@ if __name__ == '__main__':
            
            if query[0] == 'how':
               query = ' '.join(query)
-              speak('Im fine as wine sir, how about you?...')
+              speak('Im fine as wine sir, how about you?, hows your life going on?')
               print(*"a"[1:5],sep=',')
            
            if query[0] == 'pagod' and query[1] == 'na':
@@ -219,6 +227,18 @@ if __name__ == '__main__':
                 except:
                     speak('Unable to identify given data sir...')    
   
+            #joke
+           if query[0] == 'tell' and query[1] == 'me':
+                query = ' '.join(query[1:])
+                speak('Time for a dose of humor! Heres one for you sir.')
+                try:
+                    jokeresult = pyjokes.get_joke()
+                    print(jokeresult)
+                    speak(jokeresult)
+                except:
+                     speak('im not in the mood to joke sir')
+            
+  
            #notetaking
            if query[0] == 'notes':
                speak('Im listening sir, Ready to record your note')
@@ -228,7 +248,7 @@ if __name__ == '__main__':
                     newFile.write(newNote)
                speak('Your note has all been written sir.')
                
-           if query[0] == 'power' and query[1] == 'down':
+           if query[0] == 'deactivate':
                speak('Ok sir, Goodbye, have a great day ahead!')
                break
            
