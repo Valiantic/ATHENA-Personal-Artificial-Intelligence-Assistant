@@ -87,7 +87,7 @@ def search_wikipedia(query = ''):
     wikiSummary = str(wikiPage.summary)
     return wikiSummary
 
-def listOrDict(var):  #method for dictionary
+def listOrDict(var):  #wolframalpha confident answer variation
     if isinstance(var, list):
         return var[0]['plaintext']
     else:
