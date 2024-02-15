@@ -3,15 +3,15 @@ from GoogleNews import GoogleNews #google news
 
 import speech_recognition as sr #voice recognition para makilala yung boses mo 
 import pyttsx3 #text to speech / nagcoconvert ng texto sa salita
-import webbrowser #web navigation / panlipat ng web
+import webbrowser #web navigation / panlipat ng web  
 import wikipedia #wikipedia information
-import pyjokes #humor 
-import wolframalpha #mathematical calculations
-import pywhatkit #web redirection
-import openai #openai data
-import random
+import pyjokes #humor   
+import wolframalpha #mathematical calculations  
+import pywhatkit #web redirection  
+import openai #openai data  * clara upgrade
+import random 
 from apikey import api_data #fetch apikey data
-import speedtest #internet speedtest
+import speedtest 
 from pygame import mixer #audio includer
 
 openai.api_key=api_data # creating a variable to callout apikey
@@ -87,7 +87,8 @@ def search_wikipedia(query = ''):
     wikiSummary = str(wikiPage.summary)
     return wikiSummary
 
-def listOrDict(var):  #wolframalpha confident answer variation
+
+def listOrDict(var):  #confidence answer of wolframalpha a.i
     if isinstance(var, list):
         return var[0]['plaintext']
     else:
