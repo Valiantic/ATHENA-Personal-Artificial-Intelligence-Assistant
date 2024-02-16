@@ -9,10 +9,12 @@ import pyjokes #humor
 import wolframalpha #mathematical calculations  
 import pywhatkit #web redirection  
 import openai #openai data  * clara upgrade
-import random 
+import random
+# from Features.custom_voice import speak # custom voice not working 
 from apikey import api_data #fetch apikey data
 import speedtest 
-from pygame import mixer #audio includer
+from pygame import mixer
+
 
 openai.api_key=api_data # creating a variable to callout apikey
 
