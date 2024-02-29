@@ -1,4 +1,5 @@
-from datetime import datetime #date and time recognizer
+from datetime import datetime
+import json #date and time recognizer
 from GoogleNews import GoogleNews #google news
 
 import speech_recognition as sr #voice recognition para makilala yung boses mo 
@@ -304,6 +305,31 @@ if __name__ == '__main__':
                 except:
                      speak('im not in the mood to joke sir')
                      
+           if query[0] == 'news' in query:  # international news 20 news result
+                speak("Getting top global news today...")
+                import requests
+                url = ('https://newsapi.org/v2/top-headlines?'
+                'sources=bbc-news&'
+                'apiKey=035340bb8e60455eb1c9cbe96f75a7d2')
+                try:
+                    response = requests.get(url)
+                except:
+                    speak("I'm sorry, i'm having trouble getting news data, please try again later")
+                news = json.loads(response.text)
+                
+                speak("Here are some 20 headlines for today.")
+                for new in news["articles"]:
+                    print(str(new["title"]), "\n")              
+                    speak(str(new["title"]))
+                    # engine.runAndWait()
+                    
+                    # engine.runAndWait()
+                    print(str(new["description"]), "\n")
+                    speak(str(new["description"]))
+                    
+                    
+                response.json()
+            
             #screenshot
             
            if query[0] == 'screenshot' in query:
