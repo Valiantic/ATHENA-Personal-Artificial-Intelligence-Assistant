@@ -293,7 +293,7 @@ if __name__ == '__main__':
                 except:
                     speak('Unable to identify given data sir...')    
                     
-           if "news" in query:  # international news 20 news result
+           if query[0] == "news":  # international news 20 news result
                 speak("Copy, I'm getting the latest international news for you...")
                 import requests
                 url = ('https://newsapi.org/v2/top-headlines?'
@@ -318,7 +318,7 @@ if __name__ == '__main__':
                     
                 response.json()
                 
-           if "balita" in query: # local news 20 news result
+           if query[0] == 'balita': # local news 20 news result
                 speak("Copy, I'm getting the latest local news for you...")
                 import requests
                 url = ('https://newsapi.org/v2/top-headlines?'
