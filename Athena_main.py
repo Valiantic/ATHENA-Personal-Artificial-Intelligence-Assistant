@@ -292,6 +292,51 @@ if __name__ == '__main__':
                     print(*"a"[1:5],sep=',')
                 except:
                     speak('Unable to identify given data sir...')    
+                    
+           if "news" in query:  # international news 20 news result
+                speak("Copy, I'm getting the latest international news for you...")
+                import requests
+                url = ('https://newsapi.org/v2/top-headlines?'
+                'sources=bbc-news&'
+                'apiKey=035340bb8e60455eb1c9cbe96f75a7d2')
+                try:
+                    response = requests.get(url)
+                except:
+                    speak("I'm sorry, i'm having trouble getting news data, please try again later")
+                news = json.loads(response.text)
+                
+                speak("Here are some 20 headlines for today.")
+                for new in news["articles"]:
+                    print(str(new["title"]), "\n")
+                    speak(str(new["title"]))
+                    # engine.runAndWait()
+                    
+                    # engine.runAndWait()
+                    print(str(new["description"]), "\n")
+                    speak(str(new["description"]))
+                    
+                    
+                response.json()
+                
+           if "balita" in query: # local news 20 news result
+                speak("Copy, I'm getting the latest local news for you...")
+                import requests
+                url = ('https://newsapi.org/v2/top-headlines?'
+                'country=ph&'
+                'apiKey=035340bb8e60455eb1c9cbe96f75a7d2')
+                try:
+                    response = requests.get(url)
+                except:
+                    speak("Pasensiya na, ako ay nahihirapan kumuha ng mga balita sa ngayon.")
+                news = json.loads(response.text)
+                
+                speak("Here are some 20 headlines for today in the philippines.")
+                for new in news["articles"]:
+                    print(str(new["title"]), "\n")
+                    speak(str(new["title"]))
+                    # engine.runAndWait()
+                    
+                response.json()
   
             #joke
            if query[0] == 'tell' and query[1] == 'me':
