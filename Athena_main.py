@@ -11,6 +11,10 @@ import wolframalpha #mathematical calculations
 import pywhatkit #web redirection  
 import openai #openai data  * clara upgrade
 import random
+# import os 
+# import requests
+# from playsound import playsound
+# from bs4 import BeautifulSoup
 # from Features.custom_voice import speak # custom voice not working 
 from apikey import api_data #fetch apikey data
 import speedtest 
@@ -133,6 +137,79 @@ def search_wolframAlpha(query = ''):
 def joke(query = ''):
     pyjokes.get_joke('en','neutral', max_tokens= 50)
     
+    
+# # weather function
+
+# def get_weather(city): 
+#     api_key = "20fdfb76008f0d97399a7057b61972e9"  # Replace with your OpenWeatherMap API key
+#     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+#     response = requests.get(url)
+#     weather_data = json.loads(response.text)
+
+#     if response.status_code == 200:
+#         temperature = weather_data["main"]["temp"]
+#         description = weather_data["weather"][0]["description"]
+#         speak(f"The temperature in {city} is {temperature} degrees Celsius, and it is {description}.")
+#     else:
+#         speak("Error fetching weather data.")
+    
+    
+# def TTS(query):
+#     url="https://readloud.net/english/british/1-male-voice-brian.html"
+    
+#     headers = {
+#         "User-Agent":"Mozilla/5.0 (Windows NT 10.0: Win64: x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+#     }
+    
+#     payload = {
+#         "but1": query,
+#         "butS": "O",
+#         "butP": "O",
+#         "butPauses": "O",
+#         "buttO": "submit"
+#     }
+    
+#     responses = requests.post(url,headers=headers, data=payload)
+    
+#     if response.status_code == 200:
+#         return response.text
+#     else:
+#         print("failed",response.content)
+        
+# def url_extractor(textual_response):
+#     soup = BeautifulSoup(textual_response, 'html.parser')
+    
+#     audio_element = soup.find('audio')
+    
+#     if audio_element:
+#         source_url = audio_element.find('source')['src']
+#         print("Source URL:", source_url)
+#         return source_url
+#     else:
+#         print("No audio element found in the response.")
+        
+# def audio_downloader(source_url):
+#     headers = {
+#         "User-Agent":"Mozilla/5.0 (Windows NT 10.0: Win64: x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+#     }
+    
+#     response = requests.get(f"https://readloud.net{source_url}", headers=headers)
+    
+#     if response.status_code == 200:
+#         file_name = "audio.mp3"
+#         with open(file_name, "wb") as f:
+#             f.write(response.content)
+#     else:
+#         print("failed",response.status_code)
+        
+#     playsound(file_name)
+#     os.remove(file_name)
+    
+# def main(query):
+#     textual_response = TTS(query)
+#     source_url = url_extractor(textual_response)
+#     audio_downloader(source_url)
+        
   
 from Loadinggui import play_gif
 play_gif
@@ -255,7 +332,7 @@ if __name__ == '__main__':
               
             # internet speedtest 
             
-           if query[0] == "check":
+           if query[0] == "test":
               speak('Got it sir, im measuring your internet speed now')
               print('Testing your internet speed, please wait...')
               wifi = speedtest.Speedtest()
@@ -337,6 +414,22 @@ if __name__ == '__main__':
                     # engine.runAndWait()
                     
                 response.json()
+                
+                
+        #         #weather function  TO BE FIXED
+        #    if query[0] == 'check':
+        #     speak("Checking weather status using openweathermap")
+        #     try:
+        #         city = query.split("in")[-1].strip()
+        #         weather_data = get_weather(city)  # Assuming get_weather returns weather data
+        #         if weather_data:
+        #             # Process and speak the weather information
+        #             speak(f"The weather in {city} is {weather_data['description']}. The temperature is {weather_data['temperature']} degrees.")
+        #         else:
+        #             speak("I couldn't find weather information for that city.")
+        #     except:
+        #         speak("I didn't hear a city name please try again.")
+
   
             #joke
            if query[0] == 'tell' and query[1] == 'me':
