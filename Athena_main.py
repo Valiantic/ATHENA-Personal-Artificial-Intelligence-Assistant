@@ -140,18 +140,18 @@ def joke(query = ''):
     
 # # weather function
 
-# def get_weather(city): 
-#     api_key = "20fdfb76008f0d97399a7057b61972e9"  # Replace with your OpenWeatherMap API key
-#     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
-#     response = requests.get(url)
-#     weather_data = json.loads(response.text)
+def get_weather(city): # weather function
+    api_key = ""  # Replace with your OpenWeatherMap API key
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+    response = requests.get(url)
+    weather_data = json.loads(response.text)
 
-#     if response.status_code == 200:
-#         temperature = weather_data["main"]["temp"]
-#         description = weather_data["weather"][0]["description"]
-#         speak(f"The temperature in {city} is {temperature} degrees Celsius, and it is {description}.")
-#     else:
-#         speak("Error fetching weather data.")
+    if response.status_code == 200:
+        temperature = weather_data["main"]["temp"]
+        description = weather_data["weather"][0]["description"]
+        speak(f"The temperature in {city} is {temperature} degrees Celsius, and it is {description}.")
+    else:
+        speak("Error fetching weather data.")
     
     
 # def TTS(query):
@@ -415,20 +415,15 @@ if __name__ == '__main__':
                     
                 response.json()
                 
-                
-        #         #weather function  TO BE FIXED
-        #    if query[0] == 'check':
-        #     speak("Checking weather status using openweathermap")
-        #     try:
-        #         city = query.split("in")[-1].strip()
-        #         weather_data = get_weather(city)  # Assuming get_weather returns weather data
-        #         if weather_data:
-        #             # Process and speak the weather information
-        #             speak(f"The weather in {city} is {weather_data['description']}. The temperature is {weather_data['temperature']} degrees.")
-        #         else:
-        #             speak("I couldn't find weather information for that city.")
-        #     except:
-        #         speak("I didn't hear a city name please try again.")
+           # weather function
+           # use the word "IN" to specify the city
+           if query[0] == 'weather' in query:
+                    speak("Checking weather status using openweathermap")
+                    try: 
+                        city = query.split("in")[-1].strip()
+                        get_weather(city)
+                    except:
+                        speak("I didn't hear a city name please try again.")
 
   
             #joke
